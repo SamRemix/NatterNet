@@ -1,2 +1,2 @@
 # cloud__
-Express, Typescript
+Express, Prisma, Jest, Typescript
