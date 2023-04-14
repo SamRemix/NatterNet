@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '../prisma'
 import { Request, Response } from 'express'
 
-// Post model
-const { post } = new PrismaClient()
+const { post } = prisma
 
 export const create = async ({ body }: Request, res: Response) => {
   try {

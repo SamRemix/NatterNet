@@ -1,32 +1,21 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '../prisma'
 import { Request, Response } from 'express'
-import { hash } from 'bcrypt'
-
-// User model
-const { user } = new PrismaClient()
+import { hash, compare } from 'bcrypt'
+import checkEmptyFields from '../utils/checkEmptyFields'
+import findUserByEmail from '../utils/findUserByEmail'
 
 export const signUp = async ({ body }: Request, res: Response) => {
   const { name, email, password } = body
 
   // checks if fields are empty
-  let emptyFields: string[] = []
-
-  Object.entries(body).map(([key, value]) => {
-    if (!value) {
-      emptyFields.push(key)
-    }
-  })
+  const { emptyFields, message } = checkEmptyFields(body)
 
   if (emptyFields.length > 0) {
-    return res.status(400).json({ message: 'You must fill all the fields', emptyFields })
+    return res.status(400).json({ message, emptyFields })
   }
 
   // checks if the email already matches a user in the database
-  const exists = await user.findUnique({
-    where: {
-      email
-    }
-  })
+  const exists = await findUserByEmail(email)
 
   if (exists) {
     return res.status(400).json({ message: 'This email is already in use' })
@@ -82,7 +71,7 @@ export const signUp = async ({ body }: Request, res: Response) => {
   const hashedPassword = await hash(password, 10)
 
   try {
-    const data = await user.create({
+    const data = await prisma.user.create({
       data: {
         name,
         email,
@@ -94,4 +83,31 @@ export const signUp = async ({ body }: Request, res: Response) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export const logIn = async ({ body }: Request, res: Response) => {
+  const { email, password } = body
+
+  // checks if fields are empty
+  const { emptyFields, message } = checkEmptyFields(body)
+
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ message, emptyFields })
+  }
+
+  // checks if the email matches a user in the database
+  const currentUser = await findUserByEmail(email)
+
+  if (!currentUser) {
+    return res.status(400).json({ message: 'This email does not exist' })
+  }
+
+  // compares the password with that of the user who matches the email
+  const match = await compare(password, currentUser.password)
+
+  if (!match) {
+    return res.status(400).json({ error: 'This password is incorrect' })
+  }
+
+  res.status(200).json(currentUser)
 }
