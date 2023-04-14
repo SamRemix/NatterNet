@@ -1,16 +1,15 @@
 import 'dotenv/config'
-const { PORT } = process.env
 
 import express from 'express'
 
-import { router } from './posts/posts.route'
+import { router as userRouter } from './posts/posts.route'
 
 const app = express()
 
 app.use(express.json())
 
-app.use('/post', router)
+app.use('/post', userRouter)
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log('App is running')
 })
