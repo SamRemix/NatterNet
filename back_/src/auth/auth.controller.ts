@@ -2,11 +2,13 @@ import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 import { hash } from 'bcrypt'
 
+// User model
 const { user } = new PrismaClient()
 
 export const signUp = async ({ body }: Request, res: Response) => {
   const { name, email, password } = body
 
+  // checks if fields are empty
   let emptyFields: string[] = []
 
   Object.entries(body).map(([key, value]) => {
@@ -19,16 +21,18 @@ export const signUp = async ({ body }: Request, res: Response) => {
     return res.status(400).json({ message: 'You must fill all the fields', emptyFields })
   }
 
-  const alreadyExists = await user.findUnique({
+  // checks if the email already matches a user in the database
+  const exists = await user.findUnique({
     where: {
       email
     }
   })
 
-  if (alreadyExists) {
+  if (exists) {
     return res.status(400).json({ message: 'This email is already in use' })
   }
 
+  // checks the length of the name
   if (name.trim().length < 3) {
     return res.status(400).json({ message: 'Your name must contain at least 3 characters' })
   }
@@ -37,12 +41,14 @@ export const signUp = async ({ body }: Request, res: Response) => {
     return res.status(400).json({ message: 'Your name must not exceed 32 characters' })
   }
 
+  // checks if the email is valid
   const isEmail = email.toLowerCase().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 
   if (!isEmail) {
     return res.status(400).json({ message: 'Your email is invalid' })
   }
 
+  // checks if the password is strong enough
   let invalidRegExps: string[] = []
 
   const regexps = [{
@@ -72,6 +78,7 @@ export const signUp = async ({ body }: Request, res: Response) => {
     return res.status(400).json({ message: 'Your password isn\'t strong enough', invalidRegExps })
   }
 
+  // encrypt the password
   const hashedPassword = await hash(password, 10)
 
   try {
