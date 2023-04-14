@@ -1,6 +1,7 @@
 import prisma from '../prisma'
 import { Request, Response } from 'express'
 import { hash, compare } from 'bcrypt'
+import { sign } from 'jsonwebtoken'
 import checkEmptyFields from '../utils/checkEmptyFields'
 import findUserByEmail from '../utils/findUserByEmail'
 
@@ -79,7 +80,9 @@ export const signUp = async ({ body }: Request, res: Response) => {
       }
     })
 
-    res.status(200).json(data)
+    const token = sign(data.id, process.env.SECRET as string)
+
+    res.status(200).json({ data, token })
   } catch (error) {
     console.log(error)
   }
@@ -109,5 +112,7 @@ export const logIn = async ({ body }: Request, res: Response) => {
     return res.status(400).json({ error: 'This password is incorrect' })
   }
 
-  res.status(200).json(currentUser)
+  const token = sign(currentUser.id, process.env.SECRET as string)
+
+  res.status(200).json({ currentUser, token })
 }
