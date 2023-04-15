@@ -1,9 +1,19 @@
 import prisma from '../prisma'
 import { Request, Response } from 'express'
+import checkEmptyFields from '../utils/checkEmptyFields'
 
 const { post } = prisma
 
 export const create = async ({ body }: Request, res: Response) => {
+  const { title } = body
+
+  // checks if title is empty
+  const { emptyFields, message } = checkEmptyFields({ title })
+
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ message, emptyFields })
+  }
+
   try {
     const data = await post.create({
       data: {
