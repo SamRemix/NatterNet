@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 
 // print date path, method & time in the console at each request
-export const log = ({ method, path, body, userId }: Request | any, _res: Response, next: NextFunction) => {
+export const log = ({ method, originalUrl, body }: Request, _res: Response, next: NextFunction) => {
   const items = {
     method,
-    path,
+    path: originalUrl,
     body: method === 'POST' && body,
-    isConnected: userId ? true : false,
     executedAt: new Date().toLocaleTimeString()
   }
 

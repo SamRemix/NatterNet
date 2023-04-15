@@ -3,12 +3,12 @@ import { Request, Response } from 'express'
 
 const { post } = prisma
 
-export const create = async ({ body, userId }: Request | any, res: Response) => {
+export const create = async ({ body }: Request, res: Response) => {
   try {
     const data = await post.create({
       data: {
         ...body,
-        userId
+        userId: res.locals.user
       }
     })
 

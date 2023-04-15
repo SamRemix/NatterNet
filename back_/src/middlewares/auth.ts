@@ -2,8 +2,7 @@ import prisma from '../prisma'
 import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
 
-// assigns type 'Request | any' to req parameter to set userId
-const auth = async (req: Request | any, res: Response, next: NextFunction) => {
+const auth = async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers
 
   if (!authorization) {
@@ -26,7 +25,8 @@ const auth = async (req: Request | any, res: Response, next: NextFunction) => {
     })
 
     if (user) {
-      req.userId = { ...user }
+      // set res.locals to reuse it when creating a post
+      res.locals.user = user.id
     }
 
     next()
