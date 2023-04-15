@@ -4,6 +4,7 @@ import { hash, compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import checkEmptyFields from '../utils/checkEmptyFields'
 import findUserByEmail from '../utils/findUserByEmail'
+import createToken from '../utils/createToken'
 
 export const signUp = async ({ body }: Request, res: Response) => {
   const { name, email, password } = body
@@ -72,17 +73,16 @@ export const signUp = async ({ body }: Request, res: Response) => {
   const hashedPassword = await hash(password, 10)
 
   try {
-    const data = await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
-        name,
-        email,
+        ...body,
         password: hashedPassword
       }
     })
 
-    const token = sign(data.id, process.env.SECRET as string)
+    const token = createToken(user.id)
 
-    res.status(200).json({ data, token })
+    res.status(200).json({ user, token })
   } catch (error) {
     console.log(error)
   }
@@ -99,20 +99,20 @@ export const logIn = async ({ body }: Request, res: Response) => {
   }
 
   // checks if the email matches a user in the database
-  const currentUser = await findUserByEmail(email)
+  const user = await findUserByEmail(email)
 
-  if (!currentUser) {
+  if (!user) {
     return res.status(400).json({ message: 'This email does not exist' })
   }
 
   // compares the password with that of the user who matches the email
-  const match = await compare(password, currentUser.password)
+  const match = await compare(password, user.password)
 
   if (!match) {
     return res.status(400).json({ message: 'This password is incorrect' })
   }
 
-  const token = sign(currentUser.id, process.env.SECRET as string)
+  const token = createToken(user.id)
 
-  res.status(200).json({ currentUser, token })
+  res.status(200).json({ user, token })
 }

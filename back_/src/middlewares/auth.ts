@@ -31,7 +31,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
 
     next()
   } catch (error) {
-    return res.status(401).json({ message: 'Request isn\'t authorized' })
+    res.status(401).json({ message: 'Request isn\'t authorized' })
   }
 }
 

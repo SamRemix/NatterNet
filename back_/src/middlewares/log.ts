@@ -9,7 +9,7 @@ export const log = ({ method, originalUrl, body }: Request, _res: Response, next
     executedAt: new Date().toLocaleTimeString()
   }
 
-  console.log('@REQUEST', items)
+  console.log('\n@REQUEST', items)
 
   next()
 }

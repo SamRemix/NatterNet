@@ -5,7 +5,7 @@ import auth from '../middlewares/auth'
 export const router = Router()
 
 router
-  // require authentication to access endpoints
+  // require authentication
   .use(auth)
   .post('/', create)
   .get('/', findAll)
