@@ -4,14 +4,11 @@ import requireAuth from '../middlewares/requireAuth'
 
 export const router = Router()
 
-router.use(requireAuth)
-
-router.post('/', create)
-
-router.get('/', findAll)
-
-router.get('/:id', findOne)
-
-router.put('/:id', udpate)
-
-router.delete('/:id', remove)
+router
+  // require authentication to access endpoints
+  .use(requireAuth)
+  .post('/', create)
+  .get('/', findAll)
+  .get('/:id', findOne)
+  .put('/:id', udpate)
+  .delete('/:id', remove)
