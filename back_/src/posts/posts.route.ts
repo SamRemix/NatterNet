@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import { create, findAll, findOne, udpate, remove } from './posts.controller'
-import requireAuth from '../middlewares/requireAuth'
+import auth from '../middlewares/auth'
 
 export const router = Router()
 
 router
   // require authentication to access endpoints
-  .use(requireAuth)
+  .use(auth)
   .post('/', create)
   .get('/', findAll)
   .get('/:id', findOne)

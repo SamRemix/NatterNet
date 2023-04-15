@@ -2,22 +2,23 @@ import prisma from '../prisma'
 import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
 
-const requireAuth = async (req: Request | any, res: Response, next: NextFunction) => {
+// assigns type 'Request | any' to req parameter to set userId
+const auth = async (req: Request | any, res: Response, next: NextFunction) => {
   const { authorization } = req.headers
 
   if (!authorization) {
     return res.status(401).json({ message: 'Authorization token required' })
   }
 
-  // remove 'Bearer ' from the token string
+  // remove the token prefix (Bearer)
   const token = authorization.split(' ')[1]
 
   try {
-    const id = verify(token, process.env.SECRET as string)
+    const decoded = verify(token, process.env.SECRET as string)
 
     const user = await prisma.user.findUnique({
       where: {
-        id: id as string
+        id: decoded as string
       },
       select: {
         id: true
@@ -25,7 +26,7 @@ const requireAuth = async (req: Request | any, res: Response, next: NextFunction
     })
 
     if (user) {
-      req.userId = id
+      req.userId = { ...user }
     }
 
     next()
@@ -34,4 +35,4 @@ const requireAuth = async (req: Request | any, res: Response, next: NextFunction
   }
 }
 
-export default requireAuth
+export default auth
