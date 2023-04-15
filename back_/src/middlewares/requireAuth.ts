@@ -6,7 +6,7 @@ const requireAuth = async (req: Request | any, res: Response, next: NextFunction
   const { authorization } = req.headers
 
   if (!authorization) {
-    return res.status(401).json({ error: 'Authorization token required' })
+    return res.status(401).json({ message: 'Authorization token required' })
   }
 
   // remove 'Bearer ' from the token string
@@ -15,7 +15,6 @@ const requireAuth = async (req: Request | any, res: Response, next: NextFunction
   try {
     const id = verify(token, process.env.SECRET as string)
 
-    // create req.user object
     const user = await prisma.user.findUnique({
       where: {
         id: id as string
@@ -31,7 +30,7 @@ const requireAuth = async (req: Request | any, res: Response, next: NextFunction
 
     next()
   } catch (error) {
-    return res.status(401).json({ error: 'Request isn\'t authorized' })
+    return res.status(401).json({ message: 'Request isn\'t authorized' })
   }
 }
 

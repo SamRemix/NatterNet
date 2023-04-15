@@ -109,7 +109,7 @@ export const logIn = async ({ body }: Request, res: Response) => {
   const match = await compare(password, currentUser.password)
 
   if (!match) {
-    return res.status(400).json({ error: 'This password is incorrect' })
+    return res.status(400).json({ message: 'This password is incorrect' })
   }
 
   const token = sign(currentUser.id, process.env.SECRET as string)
