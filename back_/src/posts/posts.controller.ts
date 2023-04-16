@@ -9,10 +9,10 @@ export const create = async ({ body }: Request, res: Response) => {
 
   try {
     // checks if title is empty
-    const { error } = checkEmptyFields({ title })
+    const { emptyFieldsError } = checkEmptyFields({ title })
 
-    if (error.message) {
-      return res.status(400).json({ ...error })
+    if (emptyFieldsError.message) {
+      return res.status(400).json({ ...emptyFieldsError })
     }
 
     const data = await post.create({

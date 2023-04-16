@@ -1,20 +1,29 @@
 import prisma from '../prisma'
 import { Request, Response } from 'express'
 import { hash, compare } from 'bcrypt'
-import { sign } from 'jsonwebtoken'
 import checkEmptyFields from '../utils/checkEmptyFields'
 import findUserByEmail from '../utils/findUserByEmail'
 import createToken from '../utils/createToken'
+import isEmail from '../utils/isEmail'
+import isStrongPassword from '../utils/isStrongPassword'
+import isValidNameLength from '../utils/isValidNameLength'
 
 export const signUp = async ({ body }: Request, res: Response) => {
   const { name, email, password } = body
 
   try {
     // checks if fields are empty
-    const { error } = checkEmptyFields(body)
+    const { emptyFieldsError } = checkEmptyFields({ name, email, password })
 
-    if (error.message) {
-      return res.status(400).json({ ...error })
+    if (emptyFieldsError.message) {
+      return res.status(400).json({ ...emptyFieldsError })
+    }
+
+    // checks the length of the name
+    const { nameLengthError } = isValidNameLength(name, 3, 32)
+
+    if (nameLengthError) {
+      return res.status(400).json({ message: nameLengthError })
     }
 
     // checks if the email already matches a user in the database
@@ -24,50 +33,16 @@ export const signUp = async ({ body }: Request, res: Response) => {
       return res.status(400).json({ message: 'This email is already in use' })
     }
 
-    // checks the length of the name
-    if (name.trim().length < 3) {
-      return res.status(400).json({ message: 'Your name must contain at least 3 characters' })
-    }
-
-    if (name.trim().length > 32) {
-      return res.status(400).json({ message: 'Your name must not exceed 32 characters' })
-    }
-
     // checks if the email is valid
-    const isEmail = email.toLowerCase().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-
-    if (!isEmail) {
+    if (!isEmail(email)) {
       return res.status(400).json({ message: 'Your email is invalid' })
     }
 
     // checks if the password is strong enough
-    let invalidRegExps: string[] = []
+    const { passwordError } = isStrongPassword(password)
 
-    const regexps = [{
-      regExp: /^.{8,}/,
-      type: 'length'
-    }, {
-      regExp: /[A-Z]/,
-      type: 'uppercase'
-    }, {
-      regExp: /[a-z]/,
-      type: 'lowercase'
-    }, {
-      regExp: /\d/,
-      type: 'number'
-    }, {
-      regExp: /[^a-zA-Z\d]/,
-      type: 'special char'
-    }]
-
-    regexps.map(({ regExp, type }) => {
-      if (!password.match(regExp)) {
-        invalidRegExps.push(type)
-      }
-    })
-
-    if (invalidRegExps.length > 0) {
-      return res.status(400).json({ message: 'Your password isn\'t strong enough', invalidRegExps })
+    if (passwordError.message) {
+      return res.status(400).json({ ...passwordError })
     }
 
     // encrypt the password
@@ -93,10 +68,10 @@ export const logIn = async ({ body }: Request, res: Response) => {
 
   try {
     // checks if fields are empty
-    const { error } = checkEmptyFields(body)
+    const { emptyFieldsError } = checkEmptyFields({ email, password })
 
-    if (error.message) {
-      return res.status(400).json({ ...error })
+    if (emptyFieldsError.message) {
+      return res.status(400).json({ ...emptyFieldsError })
     }
 
     // checks if the email matches a user in the database

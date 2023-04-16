@@ -9,13 +9,6 @@ const checkEmptyFields = (body: object) => {
     emptyFields: []
   }
 
-  if (typeof body !== 'object') {
-    error.message = 'Parameter must be an object'
-    error.emptyFields.push('error')
-
-    return { error }
-  }
-
   Object.entries(body).map(([key, value]) => {
     if (!value || value.trim().length === 0) {
       error.emptyFields.push(key)
@@ -26,7 +19,11 @@ const checkEmptyFields = (body: object) => {
     }
   })
 
-  return { error }
+  const isEmptyField = (field: string) => (
+    error.emptyFields.includes(field)
+  )
+
+  return { emptyFieldsError: error, isEmptyField }
 }
 
 export default checkEmptyFields

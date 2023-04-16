@@ -5,7 +5,7 @@ export const log = ({ method, originalUrl, body }: Request, _res: Response, next
   const items = {
     method,
     path: originalUrl,
-    body: method === 'POST' && body,
+    body: (method === 'POST' || method === 'PUT') && body,
     executedAt: new Date().toLocaleTimeString()
   }
 
