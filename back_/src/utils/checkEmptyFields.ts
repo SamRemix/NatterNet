@@ -1,22 +1,32 @@
+type ErrorProps = {
+  message: string,
+  emptyFields: string[]
+}
+
 const checkEmptyFields = (body: object) => {
-  let emptyFields: string[] = []
-  let message = ''
+  const error: ErrorProps = {
+    message: '',
+    emptyFields: []
+  }
 
   if (typeof body !== 'object') {
-    emptyFields.push('error')
-    message = 'Parameter must be an object'
+    error.message = 'Parameter must be an object'
+    error.emptyFields.push('error')
 
-    return { emptyFields, message }
+    return { error }
   }
 
   Object.entries(body).map(([key, value]) => {
     if (!value || value.trim().length === 0) {
-      emptyFields.push(key)
-      message = 'You must fill all the fields'
+      error.emptyFields.push(key)
+
+      error.emptyFields.length === 1
+        ? error.message = `You must fill in the "${key}" field`
+        : error.message = 'You must fill all the fields'
     }
   })
 
-  return { emptyFields, message }
+  return { error }
 }
 
 export default checkEmptyFields
