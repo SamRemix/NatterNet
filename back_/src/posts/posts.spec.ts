@@ -22,7 +22,7 @@ describe('POST /post', () => {
   after()
 
   it('should return a new post', async () => {
-    const { body, status } = await request(app).post('/post').send(post)
+    const { status } = await request(app).post('/post').send(post)
 
     expect(status).toBe(401)
   })
@@ -33,7 +33,7 @@ describe('GET /post', () => {
   after()
 
   it('should return all posts', async () => {
-    const { body, status } = await request(app).get('/post')
+    const { status } = await request(app).get('/post')
 
     expect(status).toBe(401)
   })
@@ -44,7 +44,7 @@ describe('GET /post/:id', () => {
   after()
 
   it('should return one post', async () => {
-    const { body, status } = await request(app).get(`/post/${post.id}`)
+    const { status } = await request(app).get(`/post/${post.id}`)
 
     expect(status).toBe(401)
   })
@@ -55,7 +55,7 @@ describe('PUT /post/:id', () => {
   after()
 
   it('should return updated post', async () => {
-    const { body, status } = await request(app).put(`/post/${post.id}`).send({ title: '' })
+    const { status } = await request(app).put(`/post/${post.id}`).send({ title: '' })
 
     expect(status).toBe(401)
   })
@@ -65,7 +65,7 @@ describe('DELETE /post/:id', () => {
   before()
 
   it('should return deleted post', async () => {
-    const { body, status } = await request(app).delete(`/post/${post.id}`)
+    const { status } = await request(app).delete(`/post/${post.id}`)
 
     expect(status).toBe(401)
   })
