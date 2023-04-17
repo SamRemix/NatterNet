@@ -1,0 +1,37 @@
+@use './_reset.css';
+@use './vars' as v;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap');
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: v.$root-border-color;
+  font-family: 'Poppins';
+  font-weight: 300;
+
+  #root {
+    padding: v.$root-padding;
+    background: v.$root-background;
+
+    $inset: calc(v.$root-padding / 2);
+
+    &::before {
+      content: '';
+      width: calc(100% - v.$root-padding);
+      height: calc(100% - v.$root-padding);
+      box-shadow: 0 0 0 v.$root-padding v.$root-border-color;
+      border-radius: $inset;
+      position: fixed;
+      inset: $inset auto auto $inset;
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+}
