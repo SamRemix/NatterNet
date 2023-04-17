@@ -2,8 +2,8 @@
 @use './vars' as v;
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100;1,400&display=swap');
 
 html,
 body,
@@ -15,8 +15,10 @@ body {
   background: v.$root-border-color;
   font-family: 'Poppins';
   font-weight: 300;
+  overflow: hidden;
 
   #root {
+    margin-left: v.$navbar-width;
     padding: v.$root-padding;
     background: v.$root-background;
 
@@ -32,6 +34,13 @@ body {
       inset: $inset auto auto $inset;
       pointer-events: none;
       z-index: 1;
+    }
+
+    .container {
+      &-title {
+        font-family: 'Playfair Display';
+        font-size: 6rem;
+      }
     }
   }
 }

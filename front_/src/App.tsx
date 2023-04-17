@@ -1,6 +1,12 @@
+import Layout from './components/Layout'
+import Home from './pages/Home'
+
 const App = () => {
   return (
-    <h1>Cloud__</h1>
+    <>
+      <Layout />
+      <Home />
+    </>
   )
 }
 

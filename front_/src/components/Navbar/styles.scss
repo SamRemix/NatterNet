@@ -1,0 +1,22 @@
+@use '../../styles/vars' as v;
+
+$inset: calc(v.$root-padding / 4);
+
+.navbar {
+  padding: 1rem;
+  width: v.$navbar-width;
+  height: calc(100% - v.$root-padding / 2);
+  background: #fff;
+  box-shadow: 0 2px 4px rgba($color: #000, $alpha: .4);
+  border-radius: 1rem;
+  position: fixed;
+  inset: $inset auto auto $inset;
+  z-index: 2;
+
+  &-title {
+    font-family: 'Raleway';
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+  }
+}
