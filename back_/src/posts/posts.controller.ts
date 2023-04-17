@@ -8,7 +8,6 @@ export const create = async ({ body }: Request, res: Response, next: NextFunctio
   const { title } = body
 
   try {
-    // checks if title is empty
     const { emptyFieldsError } = checkEmptyFields({ title })
 
     if (emptyFieldsError.message) {

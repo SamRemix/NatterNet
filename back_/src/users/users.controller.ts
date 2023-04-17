@@ -61,7 +61,6 @@ export const udpate = async ({ params, body }: Request, res: Response, next: Nex
     const { isEmptyField } = checkEmptyFields({ name, email, password, newPassword })
 
     if (!isEmptyField('name')) {
-      // checks the length of the name
       const { nameLengthError } = isValidNameLength(name, 3, 32)
 
       if (nameLengthError) {
@@ -74,14 +73,12 @@ export const udpate = async ({ params, body }: Request, res: Response, next: Nex
         throw new Error('This email is already yours')
       }
 
-      // checks if the email already matches a user in the database
       const exists = await findUserByEmail(email)
 
       if (exists) {
         throw new Error('This email is already in use')
       }
 
-      // checks if the email is valid
       if (!isEmail(email)) {
         throw new Error('Your email is invalid')
       }
@@ -94,7 +91,6 @@ export const udpate = async ({ params, body }: Request, res: Response, next: Nex
     }
 
     if (!isEmptyField('password' && 'newPassword')) {
-      // compares request password with current user password
       const match = await compare(password, currentUser.password)
 
       if (!match) {
@@ -105,14 +101,12 @@ export const udpate = async ({ params, body }: Request, res: Response, next: Nex
         throw new Error('The passwords are the same')
       }
 
-      // checks if the password is strong enough
       const { passwordError } = isStrongPassword(newPassword)
 
       if (passwordError.message) {
         return res.status(400).json({ ...passwordError })
       }
 
-      // encrypt the password
       hashedPassword = await hash(newPassword, 10)
     }
 

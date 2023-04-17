@@ -9,7 +9,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(401).json({ message: 'Authorization token required' })
   }
 
-  // remove the token prefix (Bearer)
+  // remove the token prefix ('Bearer ')
   const token = authorization.split(' ')[1]
 
   try {
