@@ -1,10 +1,10 @@
 import prisma from '../prisma'
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import checkEmptyFields from '../utils/checkEmptyFields'
 
 const { post } = prisma
 
-export const create = async ({ body }: Request, res: Response) => {
+export const create = async ({ body }: Request, res: Response, next: NextFunction) => {
   const { title } = body
 
   try {
@@ -24,11 +24,11 @@ export const create = async ({ body }: Request, res: Response) => {
 
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
-export const findAll = async (_req: Request, res: Response) => {
+export const findAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await post.findMany({
       orderBy: {
@@ -38,11 +38,11 @@ export const findAll = async (_req: Request, res: Response) => {
 
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
-export const findOne = async ({ params }: Request, res: Response) => {
+export const findOne = async ({ params }: Request, res: Response, next: NextFunction) => {
   try {
     const data = await post.findUnique({
       where: {
@@ -50,13 +50,17 @@ export const findOne = async ({ params }: Request, res: Response) => {
       }
     })
 
+    if (!data) {
+      throw new Error('Cannot find this post')
+    }
+
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
-export const udpate = async ({ params, body }: Request, res: Response) => {
+export const udpate = async ({ params, body }: Request, res: Response, next: NextFunction) => {
   try {
     const data = await post.update({
       where: {
@@ -69,11 +73,11 @@ export const udpate = async ({ params, body }: Request, res: Response) => {
 
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
-export const remove = async ({ params }: Request, res: Response) => {
+export const remove = async ({ params }: Request, res: Response, next: NextFunction) => {
   try {
     const data = await post.delete({
       where: {
@@ -83,6 +87,6 @@ export const remove = async ({ params }: Request, res: Response) => {
 
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }

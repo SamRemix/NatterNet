@@ -1,5 +1,5 @@
 import prisma from '../prisma'
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import checkEmptyFields from '../utils/checkEmptyFields'
 import findUserByEmail from '../utils/findUserByEmail'
 import { compare, hash } from 'bcrypt'
@@ -9,7 +9,7 @@ import isValidNameLength from '../utils/isValidNameLength'
 
 const { user } = prisma
 
-export const findAll = async (_req: Request, res: Response) => {
+export const findAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await user.findMany({
       orderBy: {
@@ -19,11 +19,11 @@ export const findAll = async (_req: Request, res: Response) => {
 
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
-export const findOne = async ({ params }: Request, res: Response) => {
+export const findOne = async ({ params }: Request, res: Response, next: NextFunction) => {
   try {
     const data = await user.findUnique({
       where: {
@@ -34,13 +34,17 @@ export const findOne = async ({ params }: Request, res: Response) => {
       }
     })
 
+    if (!data) {
+      throw new Error('Cannot find this user')
+    }
+
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
-export const udpate = async ({ params, body }: Request, res: Response) => {
+export const udpate = async ({ params, body }: Request, res: Response, next: NextFunction) => {
   const { name, email, password, newPassword } = body
 
   try {
@@ -51,7 +55,7 @@ export const udpate = async ({ params, body }: Request, res: Response) => {
     })
 
     if (!currentUser) {
-      return res.status(400).json({ message: 'No such user' })
+      throw new Error('User not found')
     }
 
     const { isEmptyField } = checkEmptyFields({ name, email, password, newPassword })
@@ -61,32 +65,32 @@ export const udpate = async ({ params, body }: Request, res: Response) => {
       const { nameLengthError } = isValidNameLength(name, 3, 32)
 
       if (nameLengthError) {
-        return res.status(400).json({ message: nameLengthError })
+        throw new Error(nameLengthError)
       }
     }
 
     if (!isEmptyField('email')) {
       if (email === currentUser.email) {
-        return res.status(400).json({ message: 'This email is already yours' })
+        throw new Error('This email is already yours')
       }
 
       // checks if the email already matches a user in the database
       const exists = await findUserByEmail(email)
 
       if (exists) {
-        return res.status(400).json({ message: 'This email is already in use' })
+        throw new Error('This email is already in use')
       }
 
       // checks if the email is valid
       if (!isEmail(email)) {
-        return res.status(400).json({ message: 'Your email is invalid' })
+        throw new Error('Your email is invalid')
       }
     }
 
     let hashedPassword
 
     if (isEmptyField('password') && !isEmptyField('newPassword')) {
-      return res.status(400).json({ message: 'Your current password is required' })
+      throw new Error('Your current password is required')
     }
 
     if (!isEmptyField('password' && 'newPassword')) {
@@ -94,11 +98,11 @@ export const udpate = async ({ params, body }: Request, res: Response) => {
       const match = await compare(password, currentUser.password)
 
       if (!match) {
-        return res.status(400).json({ message: 'Incorrect password' })
+        throw new Error('Incorrect password')
       }
 
       if (password === newPassword) {
-        return res.status(400).json({ message: 'The passwords are the same' })
+        throw new Error('The passwords are the same')
       }
 
       // checks if the password is strong enough
@@ -125,11 +129,11 @@ export const udpate = async ({ params, body }: Request, res: Response) => {
 
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
-export const remove = async ({ params }: Request, res: Response) => {
+export const remove = async ({ params }: Request, res: Response, next: NextFunction) => {
   try {
     const data = await user.delete({
       where: {
@@ -139,6 +143,6 @@ export const remove = async ({ params }: Request, res: Response) => {
 
     res.status(200).json(data)
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
