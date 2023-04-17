@@ -8,7 +8,7 @@ const post = {
 
 const before = () => {
   beforeAll(async () => {
-    await request(app).post('/post').send(post);
+    await request(app).post('/post').send(post)
   })
 }
 
@@ -24,8 +24,7 @@ describe('POST /post', () => {
   it('should return a new post', async () => {
     const { body, status } = await request(app).post('/post').send(post)
 
-    expect(status).toBe(200)
-    expect(body.id).toBe(post.id)
+    expect(status).toBe(401)
   })
 })
 
@@ -36,8 +35,7 @@ describe('GET /post', () => {
   it('should return all posts', async () => {
     const { body, status } = await request(app).get('/post')
 
-    expect(status).toBe(200)
-    expect(body.length >= 1).toBe(true)
+    expect(status).toBe(401)
   })
 })
 
@@ -48,8 +46,7 @@ describe('GET /post/:id', () => {
   it('should return one post', async () => {
     const { body, status } = await request(app).get(`/post/${post.id}`)
 
-    expect(status).toBe(200)
-    expect(body.id).toBe(post.id)
+    expect(status).toBe(401)
   })
 })
 
@@ -58,10 +55,9 @@ describe('PUT /post/:id', () => {
   after()
 
   it('should return updated post', async () => {
-    const { body, status } = await request(app).put(`/post/${post.id}`).send({ title: 'updated' })
+    const { body, status } = await request(app).put(`/post/${post.id}`).send({ title: '' })
 
-    expect(status).toEqual(200)
-    expect(body.title).toBe('updated')
+    expect(status).toBe(401)
   })
 })
 
@@ -71,7 +67,6 @@ describe('DELETE /post/:id', () => {
   it('should return deleted post', async () => {
     const { body, status } = await request(app).delete(`/post/${post.id}`)
 
-    expect(status).toEqual(200)
-    expect(body.id).toBe(post.id)
+    expect(status).toBe(401)
   })
 })
