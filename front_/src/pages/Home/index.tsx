@@ -5,7 +5,7 @@ const Home = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:4000/post')
+        const { data } = await axios.get('http://localhost:4000/posts')
 
         console.log('@POSTS', data)
       } catch ({ response }: any) {

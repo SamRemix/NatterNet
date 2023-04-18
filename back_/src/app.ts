@@ -13,8 +13,8 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/auth', authRouter)
-app.use('/user', userRouter)
-app.use('/post', postRouter)
+app.use('/users', userRouter)
+app.use('/posts', postRouter)
 
 app.use(errorHandler)
 
