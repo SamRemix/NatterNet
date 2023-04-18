@@ -5,10 +5,8 @@ import auth from '../middlewares/auth'
 export const router = Router()
 
 router
-  // require authentication
-  .use(auth)
-  .post('/', create)
+  .post('/', auth, create) // require auth
   .get('/', findAll)
   .get('/:id', findOne)
-  .put('/:id', udpate)
-  .delete('/:id', remove)
+  .put('/:id', auth, udpate) // require auth
+  .delete('/:id', auth, remove) // require auth
