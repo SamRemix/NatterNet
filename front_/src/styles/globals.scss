@@ -5,6 +5,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100;1,400&display=swap');
 
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 html,
 body,
 #root {
@@ -21,6 +26,7 @@ body {
     margin-left: v.$navbar-width;
     padding: v.$root-padding;
     background: v.$root-background;
+    overflow-y: auto;
 
     $inset: calc(v.$root-padding / 2);
 
@@ -37,10 +43,42 @@ body {
     }
 
     .container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
       &-title {
+        margin-left: 2rem;
         font-family: 'Playfair Display';
-        font-size: 6rem;
+        font-size: 600%;
       }
+
+      &-sub-title {
+        font-family: 'Raleway';
+        font-size: 300%;
+      }
+
+      .content {
+        padding: 2rem;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2rem;
+
+        .form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+    }
+
+    a {
+      color: unset;
+      text-decoration: none;
     }
   }
 }

@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client'
 import { Request, Response, NextFunction } from 'express'
 
 const errorHandler = (err: any, _req: Request, res: Response, _next: NextFunction) => {
-  const { code, meta } = err
+  const { message, code, meta } = err
 
   // prisma db connection error
   if (err instanceof Prisma.PrismaClientInitializationError) {
@@ -26,7 +26,7 @@ const errorHandler = (err: any, _req: Request, res: Response, _next: NextFunctio
   }
 
   // express error
-  return res.status(400).json({ err })
+  return res.status(400).json({ message })
 }
 
 export default errorHandler

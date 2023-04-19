@@ -1,0 +1,32 @@
+@use '../../styles/_vars' as v;
+
+@mixin button {
+  padding: 0 1rem;
+  // width: fit-content;
+  height: 2.5rem;
+  background: unset;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.primary {
+  @include button;
+  background: #1D8AB1;
+  color: #fff;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.back {
+  @include button;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba($color: #000, $alpha: .4);
+  justify-content: center;
+  font-weight: 500;
+}

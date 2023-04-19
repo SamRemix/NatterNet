@@ -9,14 +9,38 @@ $inset: calc(v.$root-padding / 4);
   background: #fff;
   box-shadow: 0 2px 4px rgba($color: #000, $alpha: .4);
   border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
   position: fixed;
   inset: $inset auto auto $inset;
   z-index: 2;
 
   &-title {
     font-family: 'Raleway';
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 400;
     text-align: center;
+  }
+
+  &-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .link {
+      padding-inline: 1rem;
+      height: 2.5rem;
+      border-radius: .5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      &.active {
+        background: #d8d8d8;
+        color: #1d8ab1 !important;
+      }
+    }
   }
 }

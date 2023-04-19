@@ -1,0 +1,76 @@
+@use '../../styles/vars' as v;
+
+$border: 1px solid #888;
+
+.input-container {
+  padding: 1rem;
+  background: #dbff73;
+  border: 1px solid #888;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .input-label {
+    margin-left: 1rem;
+    font-weight: 500;
+  }
+
+  .input {
+    padding: .25rem .5rem;
+    min-width: 20rem;
+    height: 2.5rem;
+    background: #fff;
+    border: $border;
+    border-radius: .5rem;
+    font-family: inherit;
+    display: flex;
+    flex: 1;
+    outline: none;
+    position: relative;
+
+    &::placeholder {
+      color: #888;
+    }
+  }
+
+  .password-validation {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  .input-content {
+    display: flex;
+    position: relative;
+
+    &-icon {
+      padding: 0 .5rem;
+      background: #fff;
+      height: 2.5rem;
+      border: $border;
+      border-left: 0;
+      border-radius: 0 .5rem .5rem 0;
+      color: #888;
+      display: flex;
+      position: absolute;
+      right: 0;
+      cursor: pointer;
+
+      &::before {
+        content: '';
+        width: 1px;
+        height: 60%;
+        background: #888;
+        position: absolute;
+        inset: 20% 100% auto auto;
+      }
+    }
+  }
+}
