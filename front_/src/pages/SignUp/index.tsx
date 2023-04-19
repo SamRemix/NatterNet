@@ -2,16 +2,13 @@ import { useState } from 'react'
 import axios from 'axios'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import useFetch from '../../hooks/useFetch'
 
 const SignUp = () => {
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: ''
-  })
-
-  const [error, setError] = useState({
-    message: '',
   })
 
   type TargetProps = {
@@ -25,20 +22,15 @@ const SignUp = () => {
     setUser(current => ({ ...current, [name]: value }))
   }
 
+  const { error, fetchData } = useFetch({
+    method: 'post',
+    url: '/auth/sign-up'
+  })
+
   const signup = async (e: any) => {
     e.preventDefault()
 
-    try {
-      await axios.post('http://localhost:4000/auth/sign-up', {
-        ...user
-      })
-
-      // redirect to home page
-      // push('/')
-    } catch (error: any) {
-      console.log(error.response.data)
-      setError({ message: error.response.data.message })
-    }
+    fetchData({ ...user })
   }
 
   console.log(error)
@@ -50,7 +42,8 @@ const SignUp = () => {
       <h3 className="container-sub-title">Create your account</h3>
 
       <div className="content">
-        {error && <p>{error.message}</p>}
+        {error && <p>{error}</p>}
+
         <form className="form" onSubmit={signup}>
           <Input
             placeholder="Name"
