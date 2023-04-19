@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 type useFetchProps = {
   method: string,
@@ -9,6 +10,8 @@ type useFetchProps = {
 const useFetch = ({ method, url }: useFetchProps) => {
   const [response, setResponse] = useState(null)
   const [error, setError] = useState('')
+
+  const navigate = useNavigate()
 
   type InstanceProps = {
     [key: string]: any
@@ -22,6 +25,8 @@ const useFetch = ({ method, url }: useFetchProps) => {
 
       if (url.startsWith('/auth')) {
         localStorage.setItem('token', data.token)
+
+        navigate('/')
       }
 
       setResponse(data)
