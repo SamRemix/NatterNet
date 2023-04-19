@@ -31,8 +31,6 @@ const SignUp = () => {
     fetchData({ ...user })
   }
 
-  console.log(error)
-
   return (
     <section className="container">
       <h1 className="container-title">Log in</h1>

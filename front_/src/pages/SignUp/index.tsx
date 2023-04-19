@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import axios from 'axios'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import useFetch from '../../hooks/useFetch'
@@ -32,8 +31,6 @@ const SignUp = () => {
 
     fetchData({ ...user })
   }
-
-  console.log(error)
 
   return (
     <section className="container">

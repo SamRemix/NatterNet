@@ -1,7 +1,7 @@
 import {
-  HomeIcon,
-  UserPlusIcon,
-  ArrowLeftOnRectangleIcon
+  HomeIcon, // home
+  UserPlusIcon, // sign up
+  ArrowLeftOnRectangleIcon // log in
 } from '@heroicons/react/24/outline'
 
 export const topLinks = [

@@ -11,9 +11,7 @@ type ButtonProps = {
 const Button = ({ type = 'primary', onClick, children }: ButtonProps) => {
   const navigate = useNavigate()
 
-  const event = type === 'back'
-    ? () => navigate(-1)
-    : onClick
+  const event = type === 'back' ? () => navigate(-1) : onClick
 
   return (
     <button className={type} onClick={event}>
