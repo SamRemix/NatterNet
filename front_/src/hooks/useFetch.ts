@@ -1,13 +1,17 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { InstanceProps, useFetchProps } from '../@types/useFetch'
+import { AuthContext } from '../contexts/AuthContext'
+import { AuthContextProps } from '../@types/authContext'
 
 const useFetch = ({ method, url }: useFetchProps) => {
   const [response, setResponse] = useState(null)
   const [error, setError] = useState('')
 
   const navigate = useNavigate()
+
+  const { register } = useContext(AuthContext) as AuthContextProps
 
   const instance: InstanceProps = axios.create({ baseURL: 'http://localhost:4000' })
 
@@ -16,7 +20,7 @@ const useFetch = ({ method, url }: useFetchProps) => {
       const { data } = await instance[method](url, body)
 
       if (url.startsWith('/auth')) {
-        localStorage.setItem('token', data.token)
+        register(data.token)
 
         navigate('/')
       }
