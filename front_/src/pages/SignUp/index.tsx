@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import useFetch from '../../hooks/useFetch'
-import { TargetProps } from '../../@types/target'
+import useInputValue from '../../hooks/useInputValue'
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -11,9 +11,7 @@ const SignUp = () => {
     password: ''
   })
 
-  const setState = ({ target: { name, value } }: TargetProps) => {
-    setUser(current => ({ ...current, [name]: value }))
-  }
+  const { setState } = useInputValue(setUser)
 
   const { error, fetchData } = useFetch({
     method: 'post',
