@@ -4,6 +4,11 @@ import { Request, Response, NextFunction } from 'express'
 const errorHandler = (err: any, _req: Request, res: Response, _next: NextFunction) => {
   const { code, meta } = err
 
+  // prisma db connection error
+  if (err instanceof Prisma.PrismaClientInitializationError) {
+    return res.status(400).json({ message: 'Error creating a database connection' })
+  }
+
   // prisma error
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     if (code === 'P2023') {
