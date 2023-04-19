@@ -50,13 +50,9 @@ body {
 
       &-title {
         margin-left: 2rem;
+        color: v.$root-border-color;
         font-family: 'Playfair Display';
         font-size: 600%;
-      }
-
-      &-sub-title {
-        font-family: 'Raleway';
-        font-size: 300%;
       }
 
       .content {

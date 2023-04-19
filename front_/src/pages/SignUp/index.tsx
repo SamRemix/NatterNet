@@ -39,8 +39,6 @@ const SignUp = () => {
     <section className="container">
       <h1 className="container-title">Sign up</h1>
 
-      <h3 className="container-sub-title">Create your account</h3>
-
       <div className="content">
         {error && <p>{error}</p>}
 
