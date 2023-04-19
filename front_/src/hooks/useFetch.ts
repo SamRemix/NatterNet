@@ -1,21 +1,13 @@
-import axios, { AxiosInstance } from 'axios'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-type useFetchProps = {
-  method: string,
-  url: string
-}
+import { InstanceProps, useFetchProps } from '../@types/useFetch'
 
 const useFetch = ({ method, url }: useFetchProps) => {
   const [response, setResponse] = useState(null)
   const [error, setError] = useState('')
 
   const navigate = useNavigate()
-
-  type InstanceProps = {
-    [key: string]: any
-  }
 
   const instance: InstanceProps = axios.create({ baseURL: 'http://localhost:4000' })
 

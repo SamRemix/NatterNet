@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom'
 import { topLinks, bottomLinks } from './links'
 import Button from '../Button'
 import { useContext } from 'react'
-import { AuthContext, AuthContextProps } from '../../contexts/AuthContext'
+import { AuthContext } from '../../contexts/AuthContext'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
+import { AuthContextProps } from '../../@types/authContext'
 
 const Navbar = () => {
   const { token, logOut } = useContext(AuthContext) as AuthContextProps

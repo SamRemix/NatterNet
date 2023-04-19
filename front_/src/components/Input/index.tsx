@@ -1,19 +1,7 @@
 import './styles.scss'
 import { useState } from 'react'
 import { CheckBadgeIcon, EyeIcon, EyeSlashIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
-type InputProps = {
-  type?: string,
-  placeholder: string,
-  name?: string,
-  value: string,
-  onChange?: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void,
-  maxLength?: number,
-  autoFocus?: boolean,
-  passwordValidation?: boolean
-}
+import { InputProps } from '../../@types/input'
 
 const Input = ({
   type = 'text',

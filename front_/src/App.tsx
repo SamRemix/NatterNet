@@ -4,7 +4,8 @@ import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import LogIn from './pages/LogIn'
 import { useContext } from 'react'
-import { AuthContext, AuthContextProps } from './contexts/AuthContext'
+import { AuthContext } from './contexts/AuthContext'
+import { AuthContextProps } from './@types/authContext'
 
 const App = () => {
   const { token } = useContext(AuthContext) as AuthContextProps

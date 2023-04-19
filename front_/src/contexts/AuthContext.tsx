@@ -1,14 +1,5 @@
-import { createContext, useReducer, useEffect, useState } from 'react'
-
-export type AuthContextProps = {
-  token: string | null,
-  register: (token: string) => void,
-  logOut: () => void
-}
-
-type AuthProviderProps = {
-  children: React.ReactNode
-}
+import { createContext, useEffect, useState } from 'react'
+import { AuthContextProps, AuthProviderProps } from '../@types/authContext'
 
 export const AuthContext = createContext<AuthContextProps | null>(null)
 

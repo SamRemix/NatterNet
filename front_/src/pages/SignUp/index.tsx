@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import useFetch from '../../hooks/useFetch'
+import { TargetProps } from '../../@types/target'
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -9,13 +10,6 @@ const SignUp = () => {
     email: '',
     password: ''
   })
-
-  type TargetProps = {
-    target: {
-      name: string,
-      value: string
-    }
-  }
 
   const setState = ({ target: { name, value } }: TargetProps) => {
     setUser(current => ({ ...current, [name]: value }))

@@ -1,12 +1,7 @@
 import './styles.scss'
 import { useNavigate } from 'react-router-dom'
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
-
-type ButtonProps = {
-  type?: string,
-  onClick?: () => void,
-  children?: React.ReactNode
-}
+import { ButtonProps } from '../../@types/button'
 
 const Button = ({ type = 'primary', onClick, children }: ButtonProps) => {
   const navigate = useNavigate()
