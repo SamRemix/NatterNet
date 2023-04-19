@@ -20,6 +20,10 @@ const useFetch = ({ method, url }: useFetchProps) => {
     try {
       const { data } = await instance[method](url, body)
 
+      if (url.startsWith('/auth')) {
+        localStorage.setItem('token', data.token)
+      }
+
       setResponse(data)
     } catch (error: any) {
       console.log(error.response.data)
