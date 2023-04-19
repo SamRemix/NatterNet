@@ -36,10 +36,19 @@ $inset: calc(v.$root-padding / 4);
       display: flex;
       align-items: center;
       gap: 1rem;
+      transition: .1s;
+
+      &:hover {
+        background: #d8d8d8;
+      }
 
       &.active {
         background: #d8d8d8;
         color: #1d8ab1 !important;
+      }
+
+      &.logout {
+        cursor: pointer;
       }
     }
   }

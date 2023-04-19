@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect, useState } from 'react'
 
-type AuthContextProps = {
+export type AuthContextProps = {
   token: string | null,
   register: (token: string) => void,
   logOut: () => void
