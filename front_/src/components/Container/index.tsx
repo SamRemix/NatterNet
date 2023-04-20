@@ -1,3 +1,4 @@
+import './styles.scss'
 import { motion } from 'framer-motion'
 import titleAnimation from './motion.config'
 
