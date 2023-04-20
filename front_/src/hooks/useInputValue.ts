@@ -1,7 +1,9 @@
-import { TargetProps } from '../@types/target'
+import { InputTargetProps } from '../@types/input'
 
 const useInputValue = (dispatch: React.SetStateAction<any>) => {
-  const setState = ({ target: { name, value } }: TargetProps) => {
+  const setState = ({ target }: InputTargetProps) => {
+    const { name, value } = target
+
     dispatch((current: any) => ({
       ...current,
       [name]: value

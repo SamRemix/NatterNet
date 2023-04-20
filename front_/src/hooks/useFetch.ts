@@ -4,10 +4,10 @@ import axios from 'axios'
 import { AuthContext } from '../contexts/AuthContext'
 import useToasts from './useToasts'
 
-import { InstanceProps, useFetchProps } from '../@types/useFetch'
+import { AxiosInstanceProps, FetchDataProps, UseFetchProps } from '../@types/useFetch'
 import { AuthContextProps } from '../@types/authContext'
 
-const useFetch = ({ method, url }: useFetchProps) => {
+const useFetch = ({ method, url }: UseFetchProps) => {
   const [response, setResponse] = useState(null)
 
   const navigate = useNavigate()
@@ -16,9 +16,9 @@ const useFetch = ({ method, url }: useFetchProps) => {
 
   const { register } = useContext(AuthContext) as AuthContextProps
 
-  const instance: InstanceProps = axios.create({ baseURL: 'http://localhost:4000' })
+  const instance: AxiosInstanceProps = axios.create({ baseURL: 'http://localhost:4000' })
 
-  const fetchData = async (body: object | null = null) => {
+  const fetchData = async (body: FetchDataProps = null) => {
     try {
       const { data } = await instance[method](url, body)
 

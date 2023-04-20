@@ -11,3 +11,10 @@ export type InputProps = {
   passwordValidation?: boolean,
   animate?: object
 }
+
+export type InputTargetProps = {
+  target: {
+    name: string,
+    value: string
+  }
+}

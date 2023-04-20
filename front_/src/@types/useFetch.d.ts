@@ -1,8 +1,10 @@
-export type useFetchProps = {
+export type UseFetchProps = {
   method: string,
   url: string
 }
 
-export type InstanceProps = {
+export type AxiosInstanceProps = {
   [key: string]: any
 }
+
+export type FetchDataProps = object | null
