@@ -76,7 +76,7 @@ export const logIn = async ({ body }: Request, res: Response, next: NextFunction
     const match = await compare(password, user.password)
 
     if (!match) {
-      throw new Error('This password is incorrect')
+      throw new Error('Your password is incorrect')
     }
 
     const token = createToken(user.id)

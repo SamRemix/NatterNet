@@ -1,10 +1,11 @@
-import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { InstanceProps, useFetchProps } from '../@types/useFetch'
+import axios from 'axios'
 import { AuthContext } from '../contexts/AuthContext'
-import { AuthContextProps } from '../@types/authContext'
 import useToasts from './useToasts'
+
+import { InstanceProps, useFetchProps } from '../@types/useFetch'
+import { AuthContextProps } from '../@types/authContext'
 
 const useFetch = ({ method, url }: useFetchProps) => {
   const [response, setResponse] = useState(null)
@@ -30,7 +31,7 @@ const useFetch = ({ method, url }: useFetchProps) => {
             break
 
           case 'log-in':
-            addToast({ message: 'Welcome back! 🤘' })
+            addToast({ message: `Hi ${data.user.name}, welcome back! 🤘` })
             break
 
           default:
