@@ -16,7 +16,7 @@ const Toasts = () => {
       id: Date.now(),
       message,
       type,
-      duration: type === 'error' ? 6 : 4.5
+      duration: type === 'error' ? 8 : 6
     }
 
     setTimeout(() => {
