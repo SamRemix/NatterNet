@@ -12,7 +12,9 @@ import {
 import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import LogIn from './pages/LogIn'
+import Settings from './pages/Settings'
 import Profile from './pages/Profile'
+import Appearance from './pages/Appearance'
 
 // components
 import Layout from './components/Layout'
@@ -26,8 +28,9 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
 
-      <Route path="profile" element={<Profile />}>
-        <Route path=":id" />
+      <Route path="settings" element={<Settings />}>
+        <Route path="profile" element={<Profile />} />
+        <Route path="appearance" element={<Appearance />} />
       </Route>
 
       <Route path="sign-up" element={<SignUp />} />

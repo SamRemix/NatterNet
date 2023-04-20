@@ -1,15 +1,17 @@
 import './styles.scss'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { topLinks, bottomLinks } from './links'
 import Button from '../Button'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
+import { ArrowRightOnRectangleIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 import { AuthContextProps } from '../../@types/authContext'
 import useToasts from '../../hooks/useToasts'
 
 
 const Navbar = () => {
+  const { pathname } = useLocation()
+
   const { token, logOut } = useContext(AuthContext) as AuthContextProps
 
   const { addToast } = useToasts()
@@ -25,6 +27,11 @@ const Navbar = () => {
             {label}
           </NavLink>
         ))}
+
+        <NavLink className={`${pathname.startsWith('/settings') ? 'link active' : 'link'}`} to="settings/profile">
+          <Cog6ToothIcon width="1.5rem" strokeWidth={1} />
+          Settings
+        </NavLink>
       </div>
 
       <div className="navbar-section">

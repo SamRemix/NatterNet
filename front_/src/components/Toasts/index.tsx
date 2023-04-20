@@ -3,7 +3,7 @@ import { useContext, useState } from 'react'
 import { ToastsContext } from '../../contexts/ToastsContext'
 import { ToastProps } from '../../@types/toast'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import toastAnimation from './motion.config'
 
 const Toasts = () => {

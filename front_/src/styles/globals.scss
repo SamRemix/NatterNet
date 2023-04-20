@@ -56,16 +56,17 @@ body {
       }
 
       .content {
-        padding: 2rem;
+        padding: 1rem 2rem 2rem;
         height: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
         gap: 2rem;
 
         .form {
+          height: 100%;
           display: flex;
+          justify-content: center;
+          align-items: center;
           flex-direction: column;
           gap: 1rem;
         }

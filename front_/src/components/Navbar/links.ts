@@ -14,12 +14,12 @@ export const topLinks = [
 
 export const bottomLinks = [
   {
-    path: '/sign-up',
+    path: 'sign-up',
     icon: UserPlusIcon,
     label: 'Sign up'
   },
   {
-    path: '/log-in',
+    path: 'log-in',
     icon: ArrowLeftOnRectangleIcon,
     label: 'Log in'
   }
