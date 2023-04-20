@@ -1,35 +1,41 @@
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import Layout from './components/Layout'
+// dependencies
+// import { useContext } from 'react'
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider
+} from 'react-router-dom'
+// import { AnimatePresence } from 'framer-motion'
+
+// pages
 import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import LogIn from './pages/LogIn'
-import { useContext } from 'react'
-import { AuthContext } from './contexts/AuthContext'
-import { AuthContextProps } from './@types/authContext'
-import Toasts from './components/Toasts'
-import { AnimatePresence } from 'framer-motion'
+import Profile from './pages/Profile'
 
-const App = () => {
-  const location = useLocation()
+// components
+import Layout from './components/Layout'
 
-  const { token } = useContext(AuthContext) as AuthContextProps
+// auth context
+// import { AuthContext } from './contexts/AuthContext'
+// import { AuthContextProps } from './@types/authContext'
 
-  return (
-    <>
-      <Layout />
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
 
-      <Toasts />
+      <Route path="profile" element={<Profile />}>
+        <Route path=":id" />
+      </Route>
 
-      <AnimatePresence mode="wait" initial={false}>
-        <Routes location={location} key={location.key}>
-          <Route path="/" element={<Home />} />
-
-          <Route path="/sign-up" element={!token ? <SignUp /> : <Navigate to={'/'} />} />
-          <Route path="/log-in" element={!token ? <LogIn /> : <Navigate to={'/'} />} />
-        </Routes>
-      </AnimatePresence>
-    </>
+      <Route path="sign-up" element={<SignUp />} />
+      <Route path="log-in" element={<LogIn />} />
+    </Route>
   )
-}
+)
+
+const App = () => <RouterProvider router={router} />
 
 export default App
