@@ -8,5 +8,6 @@ export type InputProps = {
   ) => void,
   maxLength?: number,
   autoFocus?: boolean,
-  passwordValidation?: boolean
+  passwordValidation?: boolean,
+  animate?: object
 }

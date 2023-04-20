@@ -3,6 +3,8 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import useFetch from '../../hooks/useFetch'
 import useInputValue from '../../hooks/useInputValue'
+import Container from '../../components/Container'
+import logInAnimation from './motion.config'
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -24,31 +26,28 @@ const SignUp = () => {
   }
 
   return (
-    <section className="container">
-      <h1 className="container-title">Log in</h1>
+    <Container title="Log in">
+      <form className="form" onSubmit={logIn}>
+        <Input
+          placeholder="Email"
+          value={user.email}
+          name="email"
+          onChange={setState}
+          animate={logInAnimation.emailInput}
+        />
 
-      <div className="content">
-        <form className="form" onSubmit={logIn}>
-          <Input
-            placeholder="Email"
-            value={user.email}
-            name="email"
-            onChange={setState}
-          />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={user.password}
+          name="password"
+          onChange={setState}
+          animate={logInAnimation.passwordInput}
+        />
 
-          <Input
-            type="password"
-            placeholder="Password"
-            value={user.password}
-            name="password"
-            onChange={setState}
-            passwordValidation={true}
-          />
-
-          <Button>Log in</Button>
-        </form>
-      </div>
-    </section>
+        <Button animate={logInAnimation.submitButton}>Log in</Button>
+      </form>
+    </Container>
   )
 }
 

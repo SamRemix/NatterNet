@@ -1,5 +1,6 @@
 export type ButtonProps = {
   type?: string,
   onClick?: () => void,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  animate?: object
 }

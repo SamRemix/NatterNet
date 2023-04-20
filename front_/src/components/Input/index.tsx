@@ -2,6 +2,7 @@ import './styles.scss'
 import { useState } from 'react'
 import { CheckBadgeIcon, EyeIcon, EyeSlashIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { InputProps } from '../../@types/input'
+import { motion } from 'framer-motion'
 
 const Input = ({
   type = 'text',
@@ -11,7 +12,8 @@ const Input = ({
   onChange,
   maxLength,
   autoFocus = false,
-  passwordValidation = false
+  passwordValidation = false,
+  animate
 }: InputProps) => {
   const [isDisplay, setIsDisplay] = useState(false)
 
@@ -45,19 +47,17 @@ const Input = ({
   return (
     <>
       {type === 'text' && (
-        <div className="input-container">
-          <p className="input-label">{placeholder}</p>
+        <motion.div className="input-container" {...animate}>
+          <label className="input-label" htmlFor={name}>{placeholder}</label>
           <input {...defaultAttribut} />
-        </div>
+        </motion.div>
       )}
 
       {type === 'password' && (
-        <div className="input-container">
+        <motion.div className="input-container" {...animate}>
+          <label className="input-label" htmlFor={name}>{placeholder}</label>
           <div className="input-content">
-            <input
-              {...defaultAttribut}
-              type={isDisplay ? 'text' : 'password'}
-            />
+            <input type={isDisplay ? 'text' : 'password'} {...defaultAttribut} />
 
             <div className="input-content-icon" onClick={() => setIsDisplay(!isDisplay)}>
               {isDisplay
@@ -82,7 +82,7 @@ const Input = ({
               </ul>
             </>
           )}
-        </div>
+        </motion.div>
       )}
     </>
   )

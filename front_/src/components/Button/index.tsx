@@ -2,14 +2,15 @@ import './styles.scss'
 import { useNavigate } from 'react-router-dom'
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 import { ButtonProps } from '../../@types/button'
+import { motion } from 'framer-motion'
 
-const Button = ({ type = 'primary', onClick, children }: ButtonProps) => {
+const Button = ({ type = 'primary', onClick, children, animate }: ButtonProps) => {
   const navigate = useNavigate()
 
   const event = type === 'back' ? () => navigate(-1) : onClick
 
   return (
-    <button className={type} onClick={event}>
+    <motion.button className={type} onClick={event} {...animate}>
       {type === 'back'
         ? (
           <>
@@ -18,7 +19,7 @@ const Button = ({ type = 'primary', onClick, children }: ButtonProps) => {
           </>
         )
         : children}
-    </button>
+    </motion.button>
   )
 }
 

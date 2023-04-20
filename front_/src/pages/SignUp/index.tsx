@@ -3,6 +3,8 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import useFetch from '../../hooks/useFetch'
 import useInputValue from '../../hooks/useInputValue'
+import Container from '../../components/Container'
+import signUpAnimation from './motion.config'
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -25,40 +27,39 @@ const SignUp = () => {
   }
 
   return (
-    <section className="container">
-      <h1 className="container-title">Sign up</h1>
+    <Container title="Sign up">
+      <form className="form" onSubmit={signup}>
+        <Input
+          placeholder="Name"
+          value={user.name}
+          name="name"
+          onChange={setState}
+          maxLength={32}
+          autoFocus={true}
+          animate={signUpAnimation.nameInput}
+        />
 
-      <div className="content">
-        <form className="form" onSubmit={signup}>
-          <Input
-            placeholder="Name"
-            value={user.name}
-            name="name"
-            onChange={setState}
-            maxLength={32}
-            autoFocus={true}
-          />
+        <Input
+          placeholder="Email"
+          value={user.email}
+          name="email"
+          onChange={setState}
+          animate={signUpAnimation.emailInput}
+        />
 
-          <Input
-            placeholder="Email"
-            value={user.email}
-            name="email"
-            onChange={setState}
-          />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={user.password}
+          name="password"
+          onChange={setState}
+          passwordValidation={true}
+          animate={signUpAnimation.passwordInput}
+        />
 
-          <Input
-            type="password"
-            placeholder="Password"
-            value={user.password}
-            name="password"
-            onChange={setState}
-            passwordValidation={true}
-          />
-
-          <Button>Sign up</Button>
-        </form>
-      </div>
-    </section>
+        <Button animate={signUpAnimation.submitButton}>Sign up</Button>
+      </form>
+    </Container>
   )
 }
 
