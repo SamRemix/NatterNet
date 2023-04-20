@@ -3,6 +3,8 @@ import { useContext, useState } from 'react'
 import { ToastsContext } from '../../contexts/ToastsContext'
 import { ToastProps } from '../../@types/toast'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import toastAnimation from './motion.config'
 
 const Toasts = () => {
   const [toasts, setToasts] = useState([] as ToastProps[])
@@ -32,20 +34,29 @@ const Toasts = () => {
 
   return (
     <div className="toasts-container">
-      {toasts.map(({ id, message, type, duration }) => (
-        <div className={`toast ${type}`} key={id}>
-          {message}
+      <AnimatePresence>
+        {toasts.map(({ id, message, type, duration }) => (
+          <motion.div
+            className={`toast ${type}`}
+            key={id}
+            layoutId={id.toString()}
+            {...toastAnimation}>
+            {message}
 
-          <XMarkIcon
-            className="toast-icon"
-            width="1.5rem"
-            strokeWidth={1}
-            onClick={() => removeToast(id)}
-          />
+            <XMarkIcon
+              className="toast-icon"
+              width="1.5rem"
+              strokeWidth={1}
+              onClick={() => removeToast(id)}
+            />
 
-          <div className="indicator" style={{ animationDuration: `${duration}s` }} />
-        </div>
-      ))}
+            <div
+              className="indicator"
+              style={{ animationDuration: `${duration}s` }}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   )
 }
