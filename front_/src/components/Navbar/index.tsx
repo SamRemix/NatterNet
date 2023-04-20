@@ -6,9 +6,13 @@ import { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { AuthContextProps } from '../../@types/authContext'
+import useToasts from '../../hooks/useToasts'
+
 
 const Navbar = () => {
   const { token, logOut } = useContext(AuthContext) as AuthContextProps
+
+  const { addToast } = useToasts()
 
   return (
     <nav className="navbar">
@@ -31,7 +35,10 @@ const Navbar = () => {
               {label}
             </NavLink>
           ))
-          : <div className="link logout" onClick={() => logOut()}>
+          : <div className="link logout" onClick={() => {
+            addToast({ message: 'You\'re offline, bye 👋' })
+            logOut()
+          }}>
             <ArrowRightOnRectangleIcon width="1.5rem" strokeWidth={1} />
             Log out
           </div>}

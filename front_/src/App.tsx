@@ -6,6 +6,7 @@ import LogIn from './pages/LogIn'
 import { useContext } from 'react'
 import { AuthContext } from './contexts/AuthContext'
 import { AuthContextProps } from './@types/authContext'
+import Toasts from './components/Toasts'
 
 const App = () => {
   const { token } = useContext(AuthContext) as AuthContextProps
@@ -13,6 +14,9 @@ const App = () => {
   return (
     <>
       <Layout />
+
+      <Toasts />
+
       <Routes>
         <Route path="/" element={<Home />} />
 

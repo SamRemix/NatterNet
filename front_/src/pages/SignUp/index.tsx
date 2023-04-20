@@ -13,7 +13,7 @@ const SignUp = () => {
 
   const { setState } = useInputValue(setUser)
 
-  const { error, fetchData } = useFetch({
+  const { fetchData } = useFetch({
     method: 'post',
     url: '/auth/sign-up'
   })
@@ -29,8 +29,6 @@ const SignUp = () => {
       <h1 className="container-title">Sign up</h1>
 
       <div className="content">
-        {error && <p>{error}</p>}
-
         <form className="form" onSubmit={signup}>
           <Input
             placeholder="Name"

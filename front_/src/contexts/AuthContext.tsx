@@ -1,9 +1,10 @@
 import { createContext, useEffect, useState } from 'react'
-import { AuthContextProps, AuthProviderProps } from '../@types/authContext'
+import { AuthContextProps } from '../@types/authContext'
+import { ChildrenProps } from '../@types/children'
 
 export const AuthContext = createContext<AuthContextProps | null>(null)
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider = ({ children }: ChildrenProps) => {
   const [token, setToken] = useState<string | null>(null)
 
   const register = (token: string) => {

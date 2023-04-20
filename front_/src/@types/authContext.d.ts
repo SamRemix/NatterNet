@@ -3,7 +3,3 @@ export type AuthContextProps = {
   register: (token: string) => void,
   logOut: () => void
 }
-
-export type AuthProviderProps = {
-  children: React.ReactNode
-}
