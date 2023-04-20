@@ -1,5 +1,9 @@
 import './styles.scss'
+
+// dependencies
 import { motion } from 'framer-motion'
+
+// motion
 import titleAnimation from './motion.config'
 
 type ContainerProps = {

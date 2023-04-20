@@ -1,4 +1,7 @@
+// dependencies
 import { createContext, useEffect, useState } from 'react'
+
+// types
 import { AuthContextProps } from '../@types/authContext'
 import { ChildrenProps } from '../@types/children'
 

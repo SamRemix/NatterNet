@@ -1,8 +1,12 @@
 import './styles.scss'
+
+// dependencies
+import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+
+// types
 import { ButtonProps } from '../../@types/button'
-import { motion } from 'framer-motion'
 
 const Button = ({ type = 'primary', onClick, children, animate }: ButtonProps) => {
   const navigate = useNavigate()

@@ -1,12 +1,24 @@
 import './styles.scss'
-import { NavLink, useLocation } from 'react-router-dom'
-import { topLinks, bottomLinks } from './links'
-import Button from '../Button'
+
+// dependencies
 import { useContext } from 'react'
-import { AuthContext } from '../../contexts/AuthContext'
+import { NavLink, useLocation } from 'react-router-dom'
 import { ArrowRightOnRectangleIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
-import { AuthContextProps } from '../../@types/authContext'
+
+// components + links
+import Button from '../Button'
+
+// contexts
+import { AuthContext } from '../../contexts/AuthContext'
+
+// hooks
 import useToasts from '../../hooks/useToasts'
+
+// types
+import { AuthContextProps } from '../../@types/authContext'
+
+// other
+import { topLinks, bottomLinks } from './links'
 
 
 const Navbar = () => {

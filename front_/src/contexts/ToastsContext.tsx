@@ -1,4 +1,7 @@
+// dependencies
 import { createContext, useRef } from 'react'
+
+// types
 import { ChildrenProps } from '../@types/children'
 import { ToastProps } from '../@types/toast'
 

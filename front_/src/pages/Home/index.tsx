@@ -1,5 +1,8 @@
-import axios from 'axios'
+// dependencies
 import { useEffect } from 'react'
+import axios from 'axios'
+
+// components
 import Container from '../../components/Container'
 
 const Home = () => {

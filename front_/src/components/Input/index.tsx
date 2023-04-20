@@ -1,8 +1,12 @@
 import './styles.scss'
+
+// dependencies
 import { useState } from 'react'
-import { CheckBadgeIcon, EyeIcon, EyeSlashIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { InputProps } from '../../@types/input'
 import { motion } from 'framer-motion'
+import { CheckBadgeIcon, EyeIcon, EyeSlashIcon, XMarkIcon } from '@heroicons/react/24/outline'
+
+// types
+import { InputProps } from '../../@types/input'
 
 const Input = ({
   type = 'text',

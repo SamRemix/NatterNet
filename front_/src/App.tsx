@@ -1,12 +1,10 @@
 // dependencies
-// import { useContext } from 'react'
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider
 } from 'react-router-dom'
-// import { AnimatePresence } from 'framer-motion'
 
 // pages
 import Home from './pages/Home'
@@ -18,10 +16,6 @@ import Appearance from './pages/Appearance'
 
 // components
 import Layout from './components/Layout'
-
-// auth context
-// import { AuthContext } from './contexts/AuthContext'
-// import { AuthContextProps } from './@types/authContext'
 
 const router = createBrowserRouter(
   createRoutesFromElements(

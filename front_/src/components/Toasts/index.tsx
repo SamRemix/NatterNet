@@ -1,9 +1,17 @@
 import './styles.scss'
+
+// dependencies
 import { useContext, useState } from 'react'
-import { ToastsContext } from '../../contexts/ToastsContext'
-import { ToastProps } from '../../@types/toast'
-import { XMarkIcon } from '@heroicons/react/24/outline'
 import { AnimatePresence, motion } from 'framer-motion'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+
+// constexts
+import { ToastsContext } from '../../contexts/ToastsContext'
+
+// types
+import { ToastProps } from '../../@types/toast'
+
+// motion
 import toastAnimation from './motion.config'
 
 const Toasts = () => {

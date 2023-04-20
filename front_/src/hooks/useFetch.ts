@@ -1,9 +1,15 @@
+// dependencies
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
+// contexts
 import { AuthContext } from '../contexts/AuthContext'
+
+// hooks
 import useToasts from './useToasts'
 
+// types
 import { AxiosInstanceProps, FetchDataProps, UseFetchProps } from '../@types/useFetch'
 import { AuthContextProps } from '../@types/authContext'
 

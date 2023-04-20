@@ -1,5 +1,9 @@
 import './styles.scss'
+
+// dependencies
 import { NavLink } from 'react-router-dom'
+
+// other
 import { links } from './links'
 
 const SettingsNavbar = () => {

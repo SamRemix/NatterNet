@@ -1,9 +1,16 @@
+// dependencies
 import { useState } from 'react'
+
+// components
+import Container from '../../components/Container'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+
+// hooks
 import useFetch from '../../hooks/useFetch'
 import useInputValue from '../../hooks/useInputValue'
-import Container from '../../components/Container'
+
+// motion
 import signUpAnimation from './motion.config'
 
 const SignUp = () => {
