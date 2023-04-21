@@ -1,0 +1,11 @@
+@use '../../styles/vars' as v;
+
+.add-track-button {
+  padding: 0 1rem;
+  height: 2.5rem;
+  border-radius: .5rem;
+  box-shadow: 0 2px 4px rgba($color: #000, $alpha: .4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
