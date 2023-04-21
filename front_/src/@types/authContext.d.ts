@@ -1,5 +1,5 @@
 export type AuthContextProps = {
-  token: string | null,
-  register: (token: string) => void,
+  auth: any | null,
+  register: (auth: any) => void,
   logOut: () => void
 }

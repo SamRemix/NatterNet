@@ -8,32 +8,32 @@ import { ChildrenProps } from '../@types/children'
 export const AuthContext = createContext<AuthContextProps | null>(null)
 
 const AuthProvider = ({ children }: ChildrenProps) => {
-  const [token, setToken] = useState<string | null>(null)
+  const [auth, setAuth] = useState<any>(null)
 
-  const register = (token: string) => {
-    localStorage.setItem('token', token)
+  const register = (auth: any) => {
+    localStorage.setItem('auth', JSON.stringify({ user: auth.user.id, token: auth.token }))
 
-    return setToken(token)
+    return setAuth({ user: auth.user.id, token: auth.token })
   }
 
   const logOut = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem('auth')
 
-    return setToken(null)
+    return setAuth(null)
   }
 
-  const store = localStorage.getItem('token')
+  const store = localStorage.getItem('auth')
 
   useEffect(() => {
     if (!store) return
 
-    setToken(store)
+    setAuth(JSON.parse(store))
   }, [store])
 
-  console.log('AUTH_CONTEXT', token)
+  console.log('AUTH_CONTEXT', auth)
 
   return (
-    <AuthContext.Provider value={{ token, register, logOut }}>
+    <AuthContext.Provider value={{ auth, register, logOut }}>
       {children}
     </AuthContext.Provider>
   )

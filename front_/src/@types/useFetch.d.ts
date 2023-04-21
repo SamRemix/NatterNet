@@ -1,6 +1,7 @@
 export type UseFetchProps = {
   method: string,
-  url: string
+  url: string,
+  requireAuth?: boolean,
 }
 
 export type AxiosInstanceProps = {

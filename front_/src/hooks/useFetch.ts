@@ -13,14 +13,14 @@ import useToasts from './useToasts'
 import { AxiosInstanceProps, FetchDataProps, UseFetchProps } from '../@types/useFetch'
 import { AuthContextProps } from '../@types/authContext'
 
-const useFetch = ({ method, url }: UseFetchProps) => {
+const useFetch = ({ method, url, requireAuth = false }: UseFetchProps) => {
   const [response, setResponse] = useState(null)
 
   const navigate = useNavigate()
 
   const { addToast } = useToasts()
 
-  const { register } = useContext(AuthContext) as AuthContextProps
+  const { auth, register } = useContext(AuthContext) as AuthContextProps
 
   const instance: AxiosInstanceProps = axios.create({ baseURL: 'http://localhost:4000' })
 
@@ -29,7 +29,7 @@ const useFetch = ({ method, url }: UseFetchProps) => {
       const { data } = await instance[method](url, body)
 
       if (url.startsWith('/auth')) {
-        register(data.token)
+        register(data)
 
         switch (url.split('/')[2]) {
           case 'sign-up':
@@ -49,13 +49,13 @@ const useFetch = ({ method, url }: UseFetchProps) => {
 
       setResponse(data)
     } catch (error: any) {
-      console.log(error.response.data)
+      console.log(error)
       addToast({ message: error.response.data.message, type: 'error' })
     }
   }
 
   useEffect(() => {
-    if (method === 'GET') {
+    if ((requireAuth && auth?.token || !requireAuth) && method === 'get') {
       fetchData()
     }
   }, [method, url])
