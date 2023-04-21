@@ -10,6 +10,7 @@ import { InputProps } from '../../@types/input'
 
 const Input = ({
   type = 'text',
+  id,
   placeholder,
   value,
   name,
@@ -40,6 +41,7 @@ const Input = ({
 
   const defaultAttribut = {
     className: 'input',
+    id,
     placeholder,
     value,
     name,
@@ -54,6 +56,20 @@ const Input = ({
         <motion.div className="input-container" {...animate}>
           <label className="input-label" htmlFor={name}>{placeholder}</label>
           <input {...defaultAttribut} />
+        </motion.div>
+      )}
+
+      {type === 'number' && (
+        <motion.div className="input-container" {...animate}>
+          <label className="input-label" htmlFor={name}>{placeholder}</label>
+          <input type="number" {...defaultAttribut} />
+        </motion.div>
+      )}
+
+      {type === 'date' && (
+        <motion.div className="input-container" {...animate}>
+          <label className="input-label" htmlFor={name}>{placeholder}</label>
+          <input type="date" {...defaultAttribut} />
         </motion.div>
       )}
 
@@ -77,7 +93,7 @@ const Input = ({
               <ul className="password-validation">
                 {verifier.map(({ regex, type }, k) => (
                   <li className="password-validation-item" key={k}>
-                    {regex.test(value)
+                    {regex.test(value as string)
                       ? <CheckBadgeIcon width="1.5rem" />
                       : <XMarkIcon width="1.5rem" />}
                     <p>At least {type}</p>

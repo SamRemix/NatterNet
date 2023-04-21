@@ -1,7 +1,7 @@
 import './styles.scss'
 
 // dependencies
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, HomeIcon, LockClosedIcon, UserPlusIcon } from '@heroicons/react/24/outline'
 
@@ -19,15 +19,24 @@ import useToasts from '../../hooks/useToasts'
 import { AuthContextProps } from '../../@types/authContext'
 
 const Navbar = () => {
+  const [isAdmin, setIsAdmin] = useState(false)
   const { auth, logOut } = useContext(AuthContext) as AuthContextProps
 
   const { addToast } = useToasts()
 
-  const { response: user }: any = useFetch({
-    method: 'get',
-    url: `/users/${auth?.user}`,
-    requireAuth: true
-  })
+  // const { response: user }: any = useFetch({
+  //   method: 'get',
+  //   url: `/users/${auth?.user}`,
+  //   requireAuth: true
+  // })
+
+  // useEffect(() => {
+  //   if (user?.isAdmin) {
+  //     setIsAdmin(user.isAdmin)
+  //   }
+  // }, [user, auth])
+
+  // console.log(isAdmin)
 
   const iconAttr = {
     width: '1.5rem',
@@ -45,12 +54,10 @@ const Navbar = () => {
           <p>Home</p>
         </NavLink>
 
-        {user?.isAdmin && (
-          <NavLink className="link" to="admin">
-            <LockClosedIcon {...iconAttr} />
-            <p>Admin</p>
-          </NavLink>
-        )}
+        <NavLink className="link" to="admin">
+          <LockClosedIcon {...iconAttr} />
+          <p>Admin</p>
+        </NavLink>
       </div>
 
       <div className="navbar-section">
@@ -74,7 +81,7 @@ const Navbar = () => {
               logOut()
             }}>
               <ArrowRightOnRectangleIcon {...iconAttr} />
-              Log out
+              <p>Log out</p>
             </div>
           )}
       </div>

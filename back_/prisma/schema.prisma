@@ -20,7 +20,7 @@ model User {
 model Album {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   title     String
-  release   Int
+  release   String
   cover     String?
   tracklist Track[]
 }

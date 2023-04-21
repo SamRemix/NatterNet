@@ -26,7 +26,11 @@ const useFetch = ({ method, url, requireAuth = false }: UseFetchProps) => {
 
   const fetchData = async (body: FetchDataProps = null) => {
     try {
-      const { data } = await instance[method](url, body)
+      const { data } = await instance[method](url, body, {
+        headers: {
+          authorization: requireAuth ? `Bearer ${auth?.token}` : null,
+        }
+      })
 
       if (url.startsWith('/auth')) {
         register(data)
@@ -55,7 +59,7 @@ const useFetch = ({ method, url, requireAuth = false }: UseFetchProps) => {
   }
 
   useEffect(() => {
-    if ((requireAuth && auth?.token || !requireAuth) && method === 'get') {
+    if (method === 'get') {
       fetchData()
     }
   }, [method, url])

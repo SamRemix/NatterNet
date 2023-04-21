@@ -8,7 +8,7 @@ export const create = async ({ body }: Request, res: Response, next: NextFunctio
   const { title, release, tracklist } = body
 
   try {
-    const { emptyFieldsError } = checkEmptyFields({ title, track: tracklist.title })
+    const { emptyFieldsError } = checkEmptyFields({ title, release })
 
     if (emptyFieldsError.message) {
       return res.status(400).json({ ...emptyFieldsError })

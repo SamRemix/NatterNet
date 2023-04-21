@@ -7,13 +7,13 @@ import {
 
 // pages
 import Home from './pages/Home'
+import Admin from './pages/Admin'
 import SignUp from './pages/SignUp'
 import LogIn from './pages/LogIn'
 
 // components
 import Layout from './components/Layout'
 import { AnimatePresence } from 'framer-motion'
-import { memo } from 'react'
 
 const App = () => {
   const location = useLocation()
@@ -23,6 +23,7 @@ const App = () => {
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.key}>
           <Route index element={<Home />} />
+          <Route path="admin" element={<Admin />} />
 
           <Route path="sign-up" element={<SignUp />} />
           <Route path="log-in" element={<LogIn />} />
@@ -32,4 +33,4 @@ const App = () => {
   )
 }
 
-export default memo(App)
+export default App
