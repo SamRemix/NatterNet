@@ -11,12 +11,15 @@ import './styles/globals.scss'
 // contexts providers
 import AuthProvider from './contexts/AuthContext'
 import ToastsProvider from './contexts/ToastsContext'
+import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <AuthProvider>
       <ToastsProvider>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ToastsProvider>
     </AuthProvider>
   </StrictMode>

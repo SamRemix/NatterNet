@@ -7,14 +7,14 @@ import { motion } from 'framer-motion'
 import titleAnimation from './motion.config'
 
 type ContainerProps = {
-  title: string,
+  title?: string,
   children?: React.ReactNode
 }
 
 const Container = ({ title, children }: ContainerProps) => {
   return (
     <section className="container">
-      <motion.h1 className="container-title" {...titleAnimation}>{title}</motion.h1>
+      {title && <motion.h1 className="container-title" {...titleAnimation}>{title}</motion.h1>}
 
       <div className="content">
         {children}
