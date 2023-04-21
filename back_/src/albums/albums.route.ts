@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { create, findAll, findOne, udpate, remove } from './posts.controller'
+import { create, findAll, findOne, udpate, remove } from './albums.controller'
 import auth from '../middlewares/auth'
 
 export const router = Router()

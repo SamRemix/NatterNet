@@ -12,17 +12,28 @@ model User {
   name      String
   email     String   @unique
   password  String
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  posts     Post[]
 }
 
-model Post {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String?
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String   @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Album {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  release   Int
+  cover     String?
+  tracklist Track[]
+}
+
+model Track {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  number  Int
+  title   String
+  album   Album  @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  albumId String @db.ObjectId
+}
+
+enum Role {
+  USER
+  ADMIN
 }

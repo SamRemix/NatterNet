@@ -28,9 +28,6 @@ export const findOne = async ({ params }: Request, res: Response, next: NextFunc
     const data = await user.findUnique({
       where: {
         id: params.id
-      },
-      include: {
-        posts: true
       }
     })
 

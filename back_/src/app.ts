@@ -3,7 +3,7 @@ import cors from 'cors'
 
 import { router as authRouter } from './auth/auth.route'
 import { router as userRouter } from './users/users.route'
-import { router as postRouter } from './posts/posts.route'
+import { router as albumRouter } from './albums/albums.route'
 
 import errorHandler from './middlewares/errorHandler'
 
@@ -14,7 +14,7 @@ app.use(cors())
 
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
-app.use('/posts', postRouter)
+app.use('/albums', albumRouter)
 
 app.use(errorHandler)
 
