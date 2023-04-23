@@ -14,7 +14,7 @@ import { AxiosInstanceProps, FetchDataProps, UseFetchProps } from '../@types/use
 import { AuthContextProps } from '../@types/authContext'
 
 const useFetch = ({ method, url, requireAuth = false }: UseFetchProps) => {
-  const [response, setResponse] = useState(null)
+  const [response, setResponse] = useState<any>()
 
   const navigate = useNavigate()
 

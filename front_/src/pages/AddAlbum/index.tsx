@@ -13,7 +13,7 @@ import useFetch from '../../hooks/useFetch'
 import useInputValue from '../../hooks/useInputValue'
 import { PlusSmallIcon } from '@heroicons/react/24/outline'
 
-const Admin = () => {
+const AddAlbum = () => {
   const [album, setAlbum] = useState({ title: '', release: '' })
 
   const { setState } = useInputValue(setAlbum)
@@ -48,7 +48,7 @@ const Admin = () => {
   const addAlbum = (e: any) => {
     e.preventDefault()
 
-    // fetchData({ ...album, tracklist })
+    fetchData({ ...album, tracklist })
 
     // reset fields
     setAlbum({ title: '', release: '' })
@@ -56,7 +56,7 @@ const Admin = () => {
   }
 
   return (
-    <Container title="Admin">
+    <Container title="Add album">
       <form className="form" onSubmit={addAlbum}>
         <Input
           placeholder="Title"
@@ -84,12 +84,10 @@ const Admin = () => {
           />
         ))}
 
-        {tracklist[0].title.trim().length
-          ? <div className="add-track-button" onClick={addInput}>
-            <PlusSmallIcon width="1.5rem" strokeWidth={1} />
-            <p>Add track</p>
-          </div>
-          : null}
+        <div className="add-track-button" onClick={addInput}>
+          <PlusSmallIcon width="1.5rem" strokeWidth={1} />
+          <p>Add track</p>
+        </div>
 
         <Button>Add album</Button>
       </form>
@@ -97,4 +95,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default AddAlbum
