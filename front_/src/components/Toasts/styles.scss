@@ -9,7 +9,7 @@ $inset: 1.5rem;
   gap: .5rem;
   position: fixed;
   inset: auto $inset $inset auto;
-  z-index: 2;
+  z-index: 3;
 
   .toast {
     padding: .75rem;

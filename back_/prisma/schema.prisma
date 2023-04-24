@@ -19,16 +19,24 @@ model User {
 
 model Album {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
+  title     String  @unique
   release   String
   cover     String?
   tracklist Track[]
+  rating    Float
 }
 
 model Track {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   number  Int
   title   String
+  rating  Float
   album   Album  @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId String @db.ObjectId
 }
+
+// model Rating {
+//   id      String @id @default(auto()) @map("_id") @db.ObjectId
+//   track   Track  @relation(fields: [trackId], references: [id], onDelete: Cascade)
+//   trackId String @unique @db.ObjectId
+// }

@@ -53,7 +53,7 @@ const useFetch = ({ method, url, requireAuth = false }: UseFetchProps) => {
 
       setResponse(data)
     } catch (error: any) {
-      console.log(error)
+      console.log(error.response.data)
       addToast({ message: error.response.data.message, type: 'error' })
     }
   }

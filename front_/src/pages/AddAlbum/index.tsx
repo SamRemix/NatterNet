@@ -24,35 +24,48 @@ const AddAlbum = () => {
     requireAuth: true
   })
 
-  const [tracklist, setTracklist] = useState([{ number: 1, title: '' }])
+  const [tracklist, setTracklist] = useState([{ number: 1, title: '', rating: 0 }])
 
   const addInput = () => {
     setTracklist(tracks => (
-      [...tracks, { number: tracks.length + 1, title: '' }]
+      [...tracks, {
+        number: tracks.length + 1,
+        title: '',
+        rating: 0
+      }]
     ))
   }
 
   const handleChange = ({ target }: any) => {
-    const { id, value } = target
+    const { type, id: index, value } = target
 
     setTracklist(tracks => {
-      const newTracklist = tracks.slice()
-      newTracklist[id].title = value
+      const newTracklist = [...tracks]
+      const track: { [key: string]: any } = newTracklist[index]
+
+      const input = type === 'text'
+        ? { field: 'title', value }
+        : {
+          field: 'rating',
+          // convert range value to number
+          value: +value
+        }
+
+      track[input.field] = input.value
 
       return newTracklist
     })
+  }
 
-    console.log(tracklist)
+  const resetFields = () => {
+    setAlbum({ title: '', release: '' })
+    setTracklist([{ number: 1, title: '', rating: 0 }])
   }
 
   const addAlbum = (e: any) => {
     e.preventDefault()
 
     fetchData({ ...album, tracklist })
-
-    // reset fields
-    setAlbum({ title: '', release: '' })
-    setTracklist([{ number: 1, title: '' }])
   }
 
   return (
@@ -74,14 +87,16 @@ const AddAlbum = () => {
         />
 
         {tracklist.map((item, i) => (
-          <Input
-            placeholder={`track ${i + 1}`}
-            id={i.toString()}
-            value={item.title}
-            onChange={handleChange}
-            autoFocus={true}
-            key={i}
-          />
+          <div key={i}>
+            <Input
+              type="track"
+              placeholder={`Track ${i + 1}`}
+              id={i.toString()}
+              value={[item.title, item.rating]}
+              onChange={handleChange}
+              range={{ min: 0, max: 10, step: .5 }}
+            />
+          </div>
         ))}
 
         <div className="add-track-button" onClick={addInput}>
@@ -91,6 +106,7 @@ const AddAlbum = () => {
 
         <Button>Add album</Button>
       </form>
+      <Button onClick={resetFields}>Reset</Button>
     </Container>
   )
 }

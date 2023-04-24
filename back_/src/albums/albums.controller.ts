@@ -14,6 +14,21 @@ export const create = async ({ body }: Request, res: Response, next: NextFunctio
       return res.status(400).json({ ...emptyFieldsError })
     }
 
+    const setAverage = () => {
+      let total = 0
+      let average = 0
+
+      tracklist.map(({ rating }: { rating: number }) => {
+        console.log(typeof rating)
+        total += rating
+        average = Number((total / tracklist.length).toFixed(2))
+      })
+
+      console.log(average)
+
+      return average
+    }
+
     const data = await album.create({
       data: {
         title,
@@ -24,7 +39,8 @@ export const create = async ({ body }: Request, res: Response, next: NextFunctio
               ...tracklist
             ]
           }
-        }
+        },
+        rating: setAverage()
       }
     })
 

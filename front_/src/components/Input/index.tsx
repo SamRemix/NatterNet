@@ -15,6 +15,7 @@ const Input = ({
   value,
   name,
   onChange,
+  range,
   maxLength,
   autoFocus = false,
   passwordValidation = false,
@@ -43,7 +44,6 @@ const Input = ({
     className: 'input',
     id,
     placeholder,
-    value,
     name,
     onChange,
     maxLength,
@@ -55,21 +55,30 @@ const Input = ({
       {type === 'text' && (
         <motion.div className="input-container" {...animate}>
           <label className="input-label" htmlFor={name}>{placeholder}</label>
-          <input {...defaultAttribut} />
-        </motion.div>
-      )}
-
-      {type === 'number' && (
-        <motion.div className="input-container" {...animate}>
-          <label className="input-label" htmlFor={name}>{placeholder}</label>
-          <input type="number" {...defaultAttribut} />
+          <input value={value} {...defaultAttribut} />
         </motion.div>
       )}
 
       {type === 'date' && (
         <motion.div className="input-container" {...animate}>
           <label className="input-label" htmlFor={name}>{placeholder}</label>
-          <input type="date" {...defaultAttribut} />
+          <input value={value} type="date" {...defaultAttribut} />
+        </motion.div>
+      )}
+
+      {type === 'track' && (
+        <motion.div className="input-container" {...animate}>
+          <label className="input-label" htmlFor={name}>{placeholder}</label>
+
+          <input value={value[0]} {...defaultAttribut} />
+
+          <input
+            type="range"
+            value={value[1]}
+            {...range}
+            {...defaultAttribut}
+          />
+          Rating: {value[1]}
         </motion.div>
       )}
 
@@ -77,7 +86,7 @@ const Input = ({
         <motion.div className="input-container" {...animate}>
           <label className="input-label" htmlFor={name}>{placeholder}</label>
           <div className="input-content">
-            <input type={isDisplay ? 'text' : 'password'} {...defaultAttribut} />
+            <input value={value} type={isDisplay ? 'text' : 'password'} {...defaultAttribut} />
 
             <div className="input-content-icon" onClick={() => setIsDisplay(!isDisplay)}>
               {isDisplay
