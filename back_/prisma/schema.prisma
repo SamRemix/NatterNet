@@ -34,9 +34,3 @@ model Track {
   album   Album  @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId String @db.ObjectId
 }
-
-// model Rating {
-//   id      String @id @default(auto()) @map("_id") @db.ObjectId
-//   track   Track  @relation(fields: [trackId], references: [id], onDelete: Cascade)
-//   trackId String @unique @db.ObjectId
-// }
