@@ -1,2 +1,2 @@
 # NatterNet
-Express, Prisma, Jest, Typescript
+Express, Prisma, Jest, Typescript, React, Sass
